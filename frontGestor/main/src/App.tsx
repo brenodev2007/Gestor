@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./pages/Login/components/login";
+import Index from "./pages/Login";
 
 function App() {
   return (
     <Router>
       <Routes>
         {/* Tela de login */}
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Index />} />
       </Routes>
     </Router>
   );

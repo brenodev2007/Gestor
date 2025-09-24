@@ -17,23 +17,23 @@ import aside from "@/assets/aside-img.png";
 import type { Screens } from "..";
 
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "O username precisa ter mais que 2 caracteres",
+  atualpassword: z.string().min(2, {
+    message: "A senha precisa ter mais que 2 caracteres",
   }),
   password: z
     .string()
     .min(1, { message: "A senha precisa ter mais que 2 caracteres" }),
 });
 
-interface LoginProps {
+interface ForgotProps {
   changeScreen: (value: Screens) => void;
 }
 
-export default function Login({ changeScreen }: LoginProps) {
+export default function ForgotPassword({ changeScreen }: ForgotProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      atualpassword: "",
       password: "",
     },
   });
@@ -69,27 +69,26 @@ export default function Login({ changeScreen }: LoginProps) {
           </div>
 
           <h1 className="text-3xl font-semibold text-gray-800 text-center">
-            Login
+            Esqueceu sua senha?
           </h1>
 
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <FormField
                 control={form.control}
-                name="username"
+                name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Username</FormLabel>
+                    <FormLabel>Nova senha</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Digite seu nome de usuário"
+                        type="password"
+                        placeholder="Digite nova senha"
                         {...field}
                         className="border-emerald-600"
                       />
                     </FormControl>
-                    <FormDescription>
-                      Este é seu nome de usuário público.
-                    </FormDescription>
+                    <FormDescription>Digite uma senha forte</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -100,7 +99,7 @@ export default function Login({ changeScreen }: LoginProps) {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Senha</FormLabel>
+                    <FormLabel>Confirmar senha</FormLabel>
                     <FormControl>
                       <Input
                         type="password"

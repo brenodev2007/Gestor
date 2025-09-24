@@ -24,12 +24,11 @@ const formSchema = z.object({
     .string()
     .min(1, { message: "A senha precisa ter mais que 2 caracteres" }),
 });
-
-interface LoginProps {
+interface RegisterProps {
   changeScreen: (value: Screens) => void;
 }
 
-export default function Login({ changeScreen }: LoginProps) {
+export default function Register({ changeScreen }: RegisterProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -69,7 +68,7 @@ export default function Login({ changeScreen }: LoginProps) {
           </div>
 
           <h1 className="text-3xl font-semibold text-gray-800 text-center">
-            Login
+            Registrar-se
           </h1>
 
           <Form {...form}>
@@ -118,7 +117,7 @@ export default function Login({ changeScreen }: LoginProps) {
                 type="submit"
                 className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
               >
-                Entrar
+                Cadastrar-se
               </Button>
 
               <div className="flex flex-col flex-initial">
@@ -128,8 +127,8 @@ export default function Login({ changeScreen }: LoginProps) {
                 >
                   Esqueceu a senha?
                 </Button>
-                <Button variant="link" onClick={() => changeScreen("register")}>
-                  Não possui conta? Faça seu registro
+                <Button variant="link" onClick={() => changeScreen("login")}>
+                  Login
                 </Button>
               </div>
             </form>
