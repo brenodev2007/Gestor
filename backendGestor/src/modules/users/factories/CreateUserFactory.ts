@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { PrismaUserRepository } from '../../../repositories/prisma/prismaUserRepository';
-import { CreateUserController } from '../controllers/userController';
-import { CreateUserService } from '../services/userService';
+import { CreateUserController } from '../controllers/CreateUserController';
+import { CreateUserService } from '../services/CreateUserService';
 
 export const createUserFactory = async (req: Request, res: Response) => {
   try {

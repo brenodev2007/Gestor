@@ -1,6 +1,6 @@
-import { prisma } from "../../db/prisma";
-import { Users } from "../../generated/prisma";
-import { usersRepository } from "../usersRepository";
+import { prisma } from '../../db/prisma';
+import { Users } from '../../generated/prisma';
+import { usersRepository } from '../usersRepository';
 
 export class PrismaUserRepository implements usersRepository {
   async create(email: string, password: string): Promise<Users> {
@@ -11,7 +11,7 @@ export class PrismaUserRepository implements usersRepository {
       },
     });
   }
-  findById(id: string): Promise<Users | null> {
+  async findById(id: string): Promise<Users | null> {
     const user = prisma.users.findUnique({
       where: {
         id,
@@ -19,7 +19,7 @@ export class PrismaUserRepository implements usersRepository {
     });
     return user;
   }
-  findByEmail(email: string): Promise<Users | null> {
+  async findByEmail(email: string): Promise<Users | null> {
     const user = prisma.users.findUnique({
       where: {
         email,
@@ -27,7 +27,7 @@ export class PrismaUserRepository implements usersRepository {
     });
     return user;
   }
-  update(id: string, email: string, password: string): Promise<Users> {
+  async update(id: string, email: string, password: string): Promise<Users> {
     const user = prisma.users.update({
       where: {
         id,
@@ -39,7 +39,7 @@ export class PrismaUserRepository implements usersRepository {
     });
     return user;
   }
-  delete(id: string): Promise<void> {
+  async delete(id: string): Promise<void> {
     const user = prisma.users.delete({
       where: {
         id,

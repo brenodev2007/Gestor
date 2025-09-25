@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import z, { email } from 'zod';
-import { CreateUserService } from '../services/userService';
+import { CreateUserService } from '../services/CreateUserService';
 
 export class CreateUserController {
   constructor(private createUserService: CreateUserService) {}
