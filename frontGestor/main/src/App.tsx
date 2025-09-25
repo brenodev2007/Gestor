@@ -1,15 +1,7 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Index from "./pages/Login";
+import { Router } from "./routes/Router";
 
 function App() {
-  return (
-    <Router>
-      <Routes>
-        {/* Tela de login */}
-        <Route path="/" element={<Index />} />
-      </Routes>
-    </Router>
-  );
+  return <Router />;
 }
 
 export default App;

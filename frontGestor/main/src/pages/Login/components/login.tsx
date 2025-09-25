@@ -48,7 +48,7 @@ export default function Login({ changeScreen }: LoginProps) {
     <div className="min-h-screen flex">
       {/* Aside - imagem corporativa */}
       <aside
-        className="flex-1 bg-cover bg-center hidden lg:block relative"
+        className="flex-1 flex bg-cover bg-center   relative  items-center justify-center"
         style={{
           backgroundColor: "#003A2C",
         }}
@@ -56,7 +56,7 @@ export default function Login({ changeScreen }: LoginProps) {
         <img
           src={aside}
           alt=""
-          className="object-contain  h-screen  w-full absolute bottom-0 pt-10"
+          className="object-cover h-full absolute bottom-0 pt-10"
         />
       </aside>
 

@@ -127,7 +127,10 @@ export default function Register({ changeScreen }: RegisterProps) {
                 >
                   Esqueceu a senha?
                 </Button>
-                <Button variant="link" onClick={() => changeScreen("login")}>
+                <Button
+                  variant="link"
+                  onClick={() => changeScreen("dashboard")}
+                >
                   Login
                 </Button>
               </div>
