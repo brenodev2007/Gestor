@@ -7,7 +7,7 @@ interface AuthConfig {
 
 export const authConfig = {
   jwt: {
-    secret: process.env.JWT_SECRET || "chave-secreta-dev",
-    expiresIn: "1d",
+    secret: process.env.JWT_SECRET || 'secreto',
+    expiresIn: '1d',
   },
 };

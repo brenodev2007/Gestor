@@ -4,6 +4,7 @@ import { findByIdUserFactory } from '../modules/users/factories/FindByIdUserFact
 import { findAllUserFactory } from '../modules/users/factories/FindAllUseractory';
 import { findUserByEmailFactory } from '../modules/users/factories/FindUserByEmailFactory';
 import { updateUserFactory } from '../modules/users/factories/UpdateUserFactory';
+import { loginFactory } from '../modules/users/factories/LoginFactory';
 
 const router = Router();
 
@@ -16,5 +17,7 @@ router.get('/users/:id', findByIdUserFactory);
 router.get('/users', findUserByEmailFactory);
 
 router.patch('/users/:id', updateUserFactory);
+
+router.post('/login', loginFactory);
 
 export default router;

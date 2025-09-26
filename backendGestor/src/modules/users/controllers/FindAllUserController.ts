@@ -9,6 +9,6 @@ export class FindAllUserController {
   async handle(req: Request, res: Response) {
     const user = await this.findAllUserService.execute();
 
-    return res.json({ user: user });
+    return res.json({ users: user });
   }
 }

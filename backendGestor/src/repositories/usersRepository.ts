@@ -1,7 +1,7 @@
 import { Users } from '../generated/prisma';
 
 export interface usersRepository {
-  create(email: string, hashedPassword: string): Promise<Users>;
+  create(email: string, hashedPassword: string, name: string): Promise<Users>;
 
   findById(id: string): Promise<Users | null>;
 

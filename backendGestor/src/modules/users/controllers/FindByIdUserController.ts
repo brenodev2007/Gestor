@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import z from 'zod';
+import { z } from 'zod';
 import { CreateUserService } from '../services/CreateUserService';
 import { FindByIdUserService } from '../services/FindByIdUserService';
 

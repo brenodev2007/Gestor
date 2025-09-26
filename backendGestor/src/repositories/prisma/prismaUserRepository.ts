@@ -3,11 +3,12 @@ import { Users } from '../../generated/prisma';
 import { usersRepository } from '../usersRepository';
 
 export class PrismaUserRepository implements usersRepository {
-  async create(email: string, password: string): Promise<Users> {
+  async create(email: string, password: string, name: string): Promise<Users> {
     return prisma.users.create({
       data: {
         email,
         password,
+        name,
       },
     });
   }

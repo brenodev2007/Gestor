@@ -7,7 +7,7 @@ import { usersRepository } from '../../../repositories/usersRepository';
 export class FindAllUserService {
   constructor(private userRepo: usersRepository) {}
 
-  async execute(): Promise<Users> {
+  async execute(): Promise<Users[]> {
     // busca o usuário no banco pelo id
     const user = await this.userRepo.findAll();
 
@@ -15,6 +15,6 @@ export class FindAllUserService {
       throw new AppError('Usuário não encontrado', 404);
     }
 
-    return user[0];
+    return user;
   }
 }

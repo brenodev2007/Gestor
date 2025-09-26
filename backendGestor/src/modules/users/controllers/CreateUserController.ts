@@ -11,11 +11,18 @@ export class CreateUserController {
       password: z
         .string()
         .min(6, { message: 'Senha deve ter pelo menos 6 caracteres' }),
+      name: z
+        .string()
+        .min(2, { message: 'Nome deve ter pelo menos 2 caracteres' }),
     });
 
-    const { email, password } = userSchema.parse(req.body);
+    const { email, password, name } = userSchema.parse(req.body);
 
-    const createdUSer = await this.createUserService.execute(email, password);
+    const createdUSer = await this.createUserService.execute(
+      email,
+      password,
+      name
+    );
 
     return res.json({ user: createdUSer });
   }

@@ -21,6 +21,7 @@ enum CategoryType{
 model Users{
   id String @id @default(uuid())
   email    String   @unique
+  name String
   password String
   reports Reports[]
   wallets Wallets[]
