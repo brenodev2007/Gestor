@@ -7,24 +7,26 @@ export class GetReportsByMonthController {
 
   async handle(req: Request, res: Response) {
     try {
-      const bodySchema = z.object({
-        month: z.number().min(1, 'Mês é obrigatório'),
+      // Pegar month de query
+      const querySchema = z.object({
+        month: z
+          .string()
+          .transform((val) => parseInt(val, 10))
+          .refine((val) => !isNaN(val) && val >= 1 && val <= 12, {
+            message: 'Mês inválido',
+          }),
       });
 
-      const { month } = bodySchema.parse(req.body);
+      const { month } = querySchema.parse(req.query);
 
       const idUser = req.user?.id;
-
       if (!idUser) {
         return res.status(401).json({ error: 'Usuário não autenticado' });
       }
 
-      const createdReport = await this.getReportsByMonthService.execute(
-        idUser,
-        month
-      );
+      const report = await this.getReportsByMonthService.execute(idUser, month);
 
-      return res.json({ report: createdReport });
+      return res.json({ report });
     } catch (error) {
       if (error instanceof z.ZodError) {
         return res

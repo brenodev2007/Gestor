@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import { CreateReportsController } from '../controllers/CreateReportsController';
 import { CreateReportService } from '../services/CreateReportsService';
-import { PrismaReportRepositor } from '../../../repositories/prisma/prismaReportRepository';
+import { PrismaReportRepository } from '../../../repositories/prisma/prismaReportRepository';
 
 export const createReportsFactory = async (req: Request, res: Response) => {
   try {
-    const prismaReportRepository = new PrismaReportRepositor();
+    const prismaReportRepository = new PrismaReportRepository();
 
     const Service = new CreateReportService(prismaReportRepository);
     const Controller = new CreateReportsController(Service);

@@ -10,6 +10,6 @@ router.post('/reports', ensureAuthenticated, createReportsFactory);
 
 router.get('/reports/:idUser', ensureAuthenticated, GetReportsByUserFactory);
 
-router.get('/reports/month', ensureAuthenticated, GetReportsByMonthFactory);
+router.get('/reports', ensureAuthenticated, GetReportsByMonthFactory);
 
 export default router;
