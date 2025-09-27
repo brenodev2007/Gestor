@@ -1,0 +1,17 @@
+import { Request, Response } from 'express';
+import { CreateReportsController } from '../controllers/CreateReportsController';
+import { CreateReportService } from '../services/CreateReportsService';
+import { PrismaReportRepositor } from '../../../repositories/prisma/prismaReportRepositor';
+
+export const createReportsFactory = async (req: Request, res: Response) => {
+  try {
+    const prismaReportRepository = new PrismaReportRepositor();
+
+    const Service = new CreateReportService(prismaReportRepository);
+    const Controller = new CreateReportsController(Service);
+
+    await Controller.handle(req, res);
+  } catch (error: any) {
+    return res.status(error?.statusCode || 400).json(error);
+  }
+};

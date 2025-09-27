@@ -4,6 +4,7 @@ import { reportsRepository } from '../reportsRepository';
 
 export class PrismaReportRepositor implements reportsRepository {
   createReport(data: {
+    id: string;
     idUser: string;
     month: string;
     income: number;

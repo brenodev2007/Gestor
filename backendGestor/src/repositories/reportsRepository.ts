@@ -2,6 +2,7 @@ import { Reports } from '../generated/prisma';
 
 export interface reportsRepository {
   createReport(data: {
+    id: string;
     idUser: string;
     month: string;
     income: number;
