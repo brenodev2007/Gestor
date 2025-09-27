@@ -7,4 +7,6 @@ router.post('/reports', createReportsFactory);
 
 router.get('/reports/:idUser', createReportsFactory);
 
+router.get('/reports/month/:idUser', createReportsFactory);
+
 export default router;
