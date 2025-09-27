@@ -1,27 +1,35 @@
 import { Request, Response } from 'express';
-import z, { email } from 'zod';
+import z, { email, ZodError } from 'zod';
 import { CreateReportService } from '../services/CreateReportsService';
 
 export class CreateReportsController {
   constructor(private createReportService: CreateReportService) {}
 
   async handle(req: Request, res: Response) {
-    const reportSchema = z.object({
-      idUser: z.string().uuid(),
-      month: z.string().min(7).max(7),
-      income: z.float32().min(0),
-      expenses: z.float32().min(0),
-    });
+    try {
+      const reportSchema = z.object({
+        idUser: z.string().uuid(),
+        month: z.number().int().min(1).max(12),
+        income: z.float32().min(0),
+        expenses: z.float32().min(0),
+      });
 
-    const { idUser, month, income, expenses } = reportSchema.parse(req.body);
+      const { idUser, month, income, expenses } = reportSchema.parse(req.body);
 
-    const createdReport = await this.createReportService.execute(
-      idUser,
-      month,
-      income,
-      expenses
-    );
+      const createdReport = await this.createReportService.execute(
+        idUser,
+        month,
+        income,
+        expenses
+      );
 
-    return res.json({ report: createdReport });
+      return res.json({ report: createdReport });
+    } catch (error) {
+      if (error instanceof ZodError) {
+        res.json({ message: 'Erro nos campos enviados', error: error.issues });
+      } else {
+        return res.status(500).json({ error: 'Erro interno no servidor' });
+      }
+    }
   }
 }

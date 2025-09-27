@@ -2,7 +2,7 @@ import { prisma } from '../../db/prisma';
 import { Reports } from '../../generated/prisma';
 import { reportsRepository } from '../reportsRepository';
 
-export class PrismaReportRepositor implements reportsRepository {
+export class PrismaReportRepository implements reportsRepository {
   createReport(data: {
     id: string;
     idUser: string;
@@ -13,7 +13,7 @@ export class PrismaReportRepositor implements reportsRepository {
     const reports = prisma.reports.create({
       data: {
         idUser: data.idUser,
-        month: String(data.month),
+        month: data.month,
         income: data.income,
         expenses: data.expenses,
       },
@@ -32,7 +32,7 @@ export class PrismaReportRepositor implements reportsRepository {
     const report = prisma.reports.findFirst({
       where: {
         idUser: userId,
-        month: String(month),
+        month: month,
       },
     });
     return report;

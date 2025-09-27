@@ -8,7 +8,6 @@ export class FindUserByEmailService {
   constructor(private userRepo: usersRepository) {}
 
   async execute(email: string): Promise<Users> {
-    // busca o usuário no banco pelo id
     const user = await this.userRepo.findByEmail(email);
 
     if (!user) {

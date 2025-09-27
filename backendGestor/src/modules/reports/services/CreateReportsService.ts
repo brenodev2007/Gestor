@@ -6,7 +6,7 @@ export class CreateReportService {
 
   async execute(
     idUser: string,
-    month: string,
+    month: number,
     income: number,
     expenses: number
   ): Promise<Reports> {

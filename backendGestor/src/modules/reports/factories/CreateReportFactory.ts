@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { CreateReportsController } from '../controllers/CreateReportsController';
 import { CreateReportService } from '../services/CreateReportsService';
-import { PrismaReportRepositor } from '../../../repositories/prisma/prismaReportRepositor';
+import { PrismaReportRepositor } from '../../../repositories/prisma/prismaReportRepository';
 
 export const createReportsFactory = async (req: Request, res: Response) => {
   try {

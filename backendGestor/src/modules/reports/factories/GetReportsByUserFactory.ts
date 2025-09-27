@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { GetReportsByUserController } from '../controllers/GetReportsByUserController';
 import { GetReportsByUserService } from '../services/GetReportsByUserService';
-import { PrismaReportRepositor } from '../../../repositories/prisma/prismaReportRepositor';
+import { PrismaReportRepositor } from '../../../repositories/prisma/prismaReportRepository';
 
 export const GetReportsByUserFactory = async (req: Request, res: Response) => {
   try {
