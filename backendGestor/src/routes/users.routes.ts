@@ -15,7 +15,7 @@ router.get('/users', ensureAuthenticated, findAllUserFactory);
 
 router.get('/users/:id', ensureAuthenticated, findByIdUserFactory);
 
-router.get('/users/email', ensureAuthenticated, findUserByEmailFactory);
+router.get('/users', ensureAuthenticated, findUserByEmailFactory);
 
 router.patch('/users/:id', ensureAuthenticated, updateUserFactory);
 

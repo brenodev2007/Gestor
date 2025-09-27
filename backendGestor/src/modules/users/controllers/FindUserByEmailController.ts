@@ -7,19 +7,16 @@ export class FindUserByEmailController {
 
   async handle(req: Request, res: Response) {
     try {
-      const userSchema = z.object({
+      const querySchema = z.object({
         email: z.string().email({ message: 'Email inválido' }),
       });
 
-      const { email } = userSchema.parse(req.body);
+      const { email } = querySchema.parse(req.query);
 
       const user = await this.findUserByEmailService.execute(email);
 
-      return res.json({ user: user });
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        return res.status(400).json({ message: 'Erro nos campos' });
-      }
+      return res.json({ user });
+    } catch (error: any) {
       return res.status(500).json({ error: 'Erro interno no servidor' });
     }
   }
