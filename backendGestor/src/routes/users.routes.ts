@@ -5,18 +5,19 @@ import { findAllUserFactory } from '../modules/users/factories/FindAllUseractory
 import { findUserByEmailFactory } from '../modules/users/factories/FindUserByEmailFactory';
 import { updateUserFactory } from '../modules/users/factories/UpdateUserFactory';
 import { loginFactory } from '../modules/users/factories/LoginFactory';
+import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 
 const router = Router();
 
 router.post('/users', createUserFactory);
 
-router.get('/users', findAllUserFactory);
+router.get('/users', findAllUserFactory, ensureAuthenticated);
 
-router.get('/users/:id', findByIdUserFactory);
+router.get('/users/:id', findByIdUserFactory, ensureAuthenticated);
 
-router.get('/users', findUserByEmailFactory);
+router.get('/users', findUserByEmailFactory, ensureAuthenticated);
 
-router.patch('/users/:id', updateUserFactory);
+router.patch('/users/:id', updateUserFactory, ensureAuthenticated);
 
 router.post('/login', loginFactory);
 
