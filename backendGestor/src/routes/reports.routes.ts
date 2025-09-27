@@ -5,4 +5,6 @@ const router = Router();
 
 router.post('/reports', createReportsFactory);
 
+router.get('/reports/:idUser', createReportsFactory);
+
 export default router;
