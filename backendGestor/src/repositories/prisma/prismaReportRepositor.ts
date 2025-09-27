@@ -6,14 +6,14 @@ export class PrismaReportRepositor implements reportsRepository {
   createReport(data: {
     id: string;
     idUser: string;
-    month: string;
+    month: number;
     income: number;
     expenses: number;
   }): Promise<Reports> {
     const reports = prisma.reports.create({
       data: {
         idUser: data.idUser,
-        month: data.month,
+        month: String(data.month),
         income: data.income,
         expenses: data.expenses,
       },
@@ -28,11 +28,11 @@ export class PrismaReportRepositor implements reportsRepository {
     });
     return reports;
   }
-  getReportByMonth(userId: string, month: string): Promise<Reports | null> {
+  getReportByMonth(userId: string, month: number): Promise<Reports | null> {
     const report = prisma.reports.findFirst({
       where: {
         idUser: userId,
-        month: month,
+        month: String(month),
       },
     });
     return report;

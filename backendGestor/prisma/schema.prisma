@@ -36,7 +36,7 @@ model Users{
 
 model Reports{
   id String @id @default(uuid())
-  month String
+  month Int
   income Float
   expenses Float
   idUser String  @map("id_user")
