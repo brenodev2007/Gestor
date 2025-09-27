@@ -4,10 +4,10 @@ import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 
 const router = Router();
 
-router.post('/reports', createReportsFactory, ensureAuthenticated);
+router.post('/reports', ensureAuthenticated, createReportsFactory);
 
-router.get('/reports/:idUser', createReportsFactory, ensureAuthenticated);
+router.get('/reports/:idUser', ensureAuthenticated, createReportsFactory);
 
-router.get('/reports/month/:idUser', createReportsFactory, ensureAuthenticated);
+router.get('/reports/month/:idUser', ensureAuthenticated, createReportsFactory);
 
 export default router;

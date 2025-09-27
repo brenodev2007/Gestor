@@ -11,13 +11,13 @@ const router = Router();
 
 router.post('/users', createUserFactory);
 
-router.get('/users', findAllUserFactory, ensureAuthenticated);
+router.get('/users', ensureAuthenticated, findAllUserFactory);
 
-router.get('/users/:id', findByIdUserFactory, ensureAuthenticated);
+router.get('/users/:id', ensureAuthenticated, findByIdUserFactory);
 
-router.get('/users', findUserByEmailFactory, ensureAuthenticated);
+router.get('/users', ensureAuthenticated, findUserByEmailFactory);
 
-router.patch('/users/:id', updateUserFactory, ensureAuthenticated);
+router.patch('/users/:id', ensureAuthenticated, updateUserFactory);
 
 router.post('/login', loginFactory);
 

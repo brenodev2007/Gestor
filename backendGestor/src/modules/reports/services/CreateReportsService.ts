@@ -5,13 +5,12 @@ export class CreateReportService {
   constructor(private reportsRepo: reportsRepository) {}
 
   async execute(
-    id: string,
     idUser: string,
     month: string,
     income: number,
     expenses: number
   ): Promise<Reports> {
-    const data = { idUser, month, income, expenses, id };
+    const data = { idUser, month, income, expenses };
 
     const reports = await this.reportsRepo.createReport(data);
 

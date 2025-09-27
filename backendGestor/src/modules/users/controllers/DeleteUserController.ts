@@ -8,14 +8,23 @@ export class DeleteUserController {
   constructor(private deleteUserService: DeleteUserService) {}
 
   async handle(req: Request, res: Response) {
-    const userSchema = z.object({
-      id: z.string().uuid({ message: 'ID inválido' }),
-    });
+    try {
+      const userSchema = z.object({
+        id: z.string().uuid({ message: 'ID inválido' }),
+      });
 
-    const { id } = userSchema.parse(req.body);
+      const { id } = userSchema.parse(req.body);
 
-    const createdUSer = await this.deleteUserService.execute(id);
+      const createdUSer = await this.deleteUserService.execute(id);
 
-    return res.json({ user: createdUSer });
+      return res.json({ user: createdUSer });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: 'Erro nos campos' });
+      }
+      if (error instanceof Error) {
+        return res.status(400).json({ message: error.message });
+      }
+    }
   }
 }

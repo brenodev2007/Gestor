@@ -7,14 +7,23 @@ export class GetReportsByUserController {
   constructor(private getReportsByUserService: GetReportsByUserService) {}
 
   async handle(req: Request, res: Response) {
-    const reportSchema = z.object({
-      idUser: z.string().uuid(),
-    });
+    try {
+      const reportSchema = z.object({
+        idUser: z.string().uuid(),
+      });
 
-    const { idUser } = reportSchema.parse(req.params);
+      const { idUser } = reportSchema.parse(req.params);
 
-    const createdReport = await this.getReportsByUserService.execute(idUser);
+      const createdReport = await this.getReportsByUserService.execute(idUser);
 
-    return res.json({ report: createdReport });
+      return res.json({ report: createdReport });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: 'Erro nos campos' });
+      }
+      if (error instanceof Error) {
+        return res.status(400).json({ message: error.message });
+      }
+    }
   }
 }

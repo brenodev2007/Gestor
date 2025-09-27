@@ -7,19 +7,15 @@ export class CreateReportsController {
 
   async handle(req: Request, res: Response) {
     const reportSchema = z.object({
-      id: z.string().uuid(),
       idUser: z.string().uuid(),
       month: z.string().min(7).max(7),
-      income: z.number().min(0),
-      expenses: z.number().min(0),
+      income: z.float32().min(0),
+      expenses: z.float32().min(0),
     });
 
-    const { id, idUser, month, income, expenses } = reportSchema.parse(
-      req.body
-    );
+    const { idUser, month, income, expenses } = reportSchema.parse(req.body);
 
     const createdReport = await this.createReportService.execute(
-      id,
       idUser,
       month,
       income,
