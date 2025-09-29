@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/Login';
 import SignUpPage from './pages/SignUp';
 import DashboardPage from './pages/Dashboard';
-import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
@@ -14,11 +13,7 @@ function App() {
         <Route path="/signup" element={<SignUpPage />} />
         <Route 
           path="/" 
-          element={
-            <PrivateRoute 
-              element={<DashboardPage />}
-            />
-          }
+          element={<DashboardPage />}
         />
       </Routes>
     </Router>

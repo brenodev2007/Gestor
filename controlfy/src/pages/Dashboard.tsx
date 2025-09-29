@@ -1,126 +1,57 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { logout } from '../services/auth';
-import { addTransaction, getTransactions } from '../services/firestore';
-
-interface Transaction {
-  id: string;
-  name: string;
-  value: number;
-  type: 'income' | 'expense';
-  createdAt: any;
-}
 
 const DashboardPage: React.FC = () => {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [newName, setNewName] = useState('');
-  const [newValue, setNewValue] = useState('');
-  const [newType, setNewType] = useState<'revenue' | 'expense'>('revenue');
-
-  const [totalBalance, setTotalBalance] = useState(0);
-  const [totalRevenues, setTotalRevenues] = useState(0);
-  const [totalExpenses, setTotalExpenses] = useState(0);
-
-  const fetchTransactions = async () => {
-    const querySnapshot = await getTransactions();
-    const transactionsData = querySnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...(doc.data() as Omit<Transaction, 'id'>)
-    }));
-    setTransactions(transactionsData);
-  };
-
-  useEffect(() => {
-    fetchTransactions();
-  }, []);
-
-  useEffect(() => {
-    const calculateSummary = () => {
-      const revenues = transactions
-        .filter(t => t.type === 'revenue')
-        .reduce((acc, t) => acc + t.value, 0);
-      const expenses = transactions
-        .filter(t => t.type === 'expense')
-        .reduce((acc, t) => acc + t.value, 0);
-
-      setTotalRevenues(revenues);
-      setTotalExpenses(expenses);
-      setTotalBalance(revenues - expenses);
-    };
-
-    calculateSummary();
-  }, [transactions]);
-
-  const handleAddTransaction = async () => {
-    if (newName && newValue) {
-      await addTransaction(newName, parseFloat(newValue), newType);
-      setNewName('');
-      setNewValue('');
-      fetchTransactions();
-    }
-  };
-
-  const handleLogout = async () => {
-    await logout();
-    window.location.href = '/login';
-  };
 
   return (
     <Container>
       <Header>
         <Title>Dashboard</Title>
-        <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
+        <LogoutButton>Logout</LogoutButton>
       </Header>
       <Summary>
         <SummaryCard>
           <SummaryTitle>Total Balance</SummaryTitle>
-          <SummaryValue>R$ {totalBalance.toFixed(2)}</SummaryValue>
+          <SummaryValue>R$ 10.000,00</SummaryValue>
         </SummaryCard>
         <SummaryCard>
           <SummaryTitle>Total Revenues</SummaryTitle>
-          <SummaryValue>R$ {totalRevenues.toFixed(2)}</SummaryValue>
+          <SummaryValue>R$ 15.000,00</SummaryValue>
         </SummaryCard>
         <SummaryCard>
           <SummaryTitle>Total Expenses</SummaryTitle>
-          <SummaryValue>R$ {totalExpenses.toFixed(2)}</SummaryValue>
+          <SummaryValue>R$ 5.000,00</SummaryValue>
         </SummaryCard>
       </Summary>
       <Transactions>
         <TransactionTitle>Recent Transactions</TransactionTitle>
         <TransactionList>
-          {transactions.map(transaction => (
-            <TransactionItem key={transaction.id}>
-              <TransactionInfo>
-                <TransactionName>{transaction.name}</TransactionName>
-                <TransactionCategory>{transaction.type}</TransactionCategory>
-              </TransactionInfo>
-              <TransactionValue>R$ {transaction.value.toFixed(2)}</TransactionValue>
-            </TransactionItem>
-          ))}
+          <TransactionItem>
+            <TransactionInfo>
+              <TransactionName>Salary</TransactionName>
+              <TransactionCategory>Revenue</TransactionCategory>
+            </TransactionInfo>
+            <TransactionValue>R$ 5.000,00</TransactionValue>
+          </TransactionItem>
+          <TransactionItem>
+            <TransactionInfo>
+              <TransactionName>Rent</TransactionName>
+              <TransactionCategory>Expense</TransactionCategory>
+            </TransactionInfo>
+            <TransactionValue>R$ 1.500,00</TransactionValue>
+          </TransactionItem>
         </TransactionList>
       </Transactions>
       <AddTransaction>
         <TransactionTitle>Add Transaction</TransactionTitle>
-        <Input 
-          placeholder="Name" 
-          value={newName} 
-          onChange={(e) => setNewName(e.target.value)} 
-        />
-        <Input 
-          type="number" 
-          placeholder="Value" 
-          value={newValue} 
-          onChange={(e) => setNewValue(e.target.value)} 
-        />
-        <Select 
-          value={newType} 
-          onChange={(e) => setNewType(e.target.value as 'revenue' | 'expense')} 
-        >
-          <option value="revenue">Revenue</option>
-          <option value="expense">Expense</option>
+        <Input placeholder="Name" />
+        <Input placeholder="Value" />
+        <Select>
+          <option>Revenue</option>
+          <option>Expense</option>
         </Select>
-        <Button onClick={handleAddTransaction}>Add</Button>
+        <Button>Add</Button>
       </AddTransaction>
     </Container>
   );
