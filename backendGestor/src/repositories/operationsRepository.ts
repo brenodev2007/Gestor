@@ -1,12 +1,13 @@
-import { Operations } from '../generated/prisma';
+import { OperartionType, Operations } from '../generated/prisma';
 
 export interface operationsRepository {
   create(
     description: string,
     amount: number,
-    date: Date,
     idUser: string,
-    type: 'income' | 'expense'
+    idWallet: string,
+    idCategory: string,
+    type: OperartionType
   ): Promise<Operations>;
   getOperationsByUser(idUser: string): Promise<Operations[]>;
 
@@ -16,7 +17,9 @@ export interface operationsRepository {
     idOperation: string,
     description: string,
     amount: number,
-    date: Date,
-    type: 'income' | 'expense'
+    idUser: string,
+    idWallet: string,
+    idCategory: string,
+    type: OperartionType
   ): Promise<Operations>;
 }

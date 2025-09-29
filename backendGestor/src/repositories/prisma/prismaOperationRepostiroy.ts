@@ -1,65 +1,68 @@
 import { prisma } from '../../db/prisma';
+import { OperartionType, Operations } from '../../generated/prisma';
 import { operationsRepository } from '../operationsRepository';
 
 export class PrismaOperationRepository implements operationsRepository {
-  async createOperation(data: {
-    id: string;
-    idUser: string;
-    type: 'income' | 'expense';
-    value: number;
-    date: Date;
-  }): Promise<any> {
-    const operation = await prisma.operations.create({
+  create(
+    description: string,
+    amount: number,
+    idUser: string,
+    idWallet: string,
+    idCategory: string,
+    type: OperartionType
+  ): Promise<Operations> {
+    const operation = prisma.operations.create({
       data: {
-        idUser: data.idUser,
-        type: data.type,
-        value: data.value,
-        date: data.date,
+        description,
+        amount,
+        idUser,
+        idWallet,
+        idCategory,
+        type,
       },
     });
     return operation;
   }
-
-  async getOperationsByUser(userId: string): Promise<any[]> {
-    const operations = await prisma.operations.findMany({
+  getOperationsByUser(idUser: string): Promise<Operations[]> {
+    const operations = prisma.operations.findMany({
       where: {
-        idUser: userId,
+        idUser,
       },
     });
     return operations;
   }
-
-  async getOperationById(id: string): Promise<any | null> {
-    const operation = await prisma.operations.findUnique({
+  deleteOperation(idOperation: string): Promise<void> {
+    const operation = prisma.operations.delete({
       where: {
-        id,
+        id: idOperation,
       },
     });
-    return operation;
+    return operation.then(() => {
+      return;
+    });
   }
-
-  async updateOperation(
-    id: string,
-    data: { type?: string; value?: number; date?: Date }
-  ): Promise<any> {
-    const operation = await prisma.operations.update({
+  updateOperation(
+    idOperation: string,
+    description: string,
+    amount: number,
+    idUser: string,
+    idWallet: string,
+    idCategory: string,
+    type: OperartionType
+  ): Promise<Operations> {
+    const operation = prisma.operations.update({
       where: {
-        id,
+        id: idOperation,
       },
       data: {
-        type: data.type,
-        value: data.value,
-        date: data.date,
+        description,
+        amount,
+        idUser,
+        idWallet,
+        idCategory,
+        type,
       },
     });
     return operation;
-  }
-
-  async deleteOperation(id: string): Promise<void> {
-    await prisma.operations.delete({
-      where: {
-        id,
-      },
-    });
   }
 }
