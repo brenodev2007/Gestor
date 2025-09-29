@@ -1,78 +1,66 @@
 
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Link } from "react-router-dom";
 
-const LoginPage: React.FC = () => {
-
+export function Login() {
   return (
-    <Container>
-      <Title>Login</Title>
-      <Form>
-        <Input
-          type="email"
-          placeholder="Email"
-        />
-        <Input
-          type="password"
-          placeholder="Password"
-        />
-        <Button type="submit">Login</Button>
-      </Form>
-      <StyledLink to="/signup">Don't have an account? Sign Up</StyledLink>
-    </Container>
+    <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
+      <div className="flex items-center justify-center py-12">
+        <div className="mx-auto grid w-[350px] gap-6">
+          <div className="grid gap-2 text-center">
+            <h1 className="text-3xl font-bold">Login</h1>
+            <p className="text-balance text-muted-foreground">
+              Enter your email below to login to your account
+            </p>
+          </div>
+          <div className="grid gap-4">
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="m@example.com"
+                required
+              />
+            </div>
+            <div className="grid gap-2">
+              <div className="flex items-center">
+                <Label htmlFor="password">Password</Label>
+                <Link
+                  to="/forgot-password"
+                  className="ml-auto inline-block text-sm underline"
+                >
+                  Forgot your password?
+                </Link>
+              </div>
+              <Input id="password" type="password" required />
+            </div>
+            <Button type="submit" className="w-full">
+              Login
+            </Button>
+            <Button variant="outline" className="w-full">
+              Login with Google
+            </Button>
+          </div>
+          <div className="mt-4 text-center text-sm">
+            Don't have an account?{" "}
+            <Link to="/sign-up" className="underline">
+              Sign up
+            </Link>
+          </div>
+        </div>
+      </div>
+      <div className="hidden bg-muted lg:block">
+        {/* <Image
+          src="/placeholder.svg"
+          alt="Image"
+          width="1920"
+          height="1080"
+          className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+        /> */}
+      </div>
+    </div>
   );
-};
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: var(--background-color);
-`;
-
-const Title = styled.h1`
-  margin-bottom: 2rem;
-  color: var(--primary-color);
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-`;
-
-const Input = styled.input`
-  padding: 10px;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-`;
-
-const Button = styled.button`
-  padding: 10px;
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: var(--secondary-color);
-  }
-`;
-
-const StyledLink = styled(Link)`
-  margin-top: 1rem;
-  color: var(--primary-color);
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-export default LoginPage;
+}
