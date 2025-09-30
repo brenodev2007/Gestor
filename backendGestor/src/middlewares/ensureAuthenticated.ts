@@ -5,6 +5,7 @@ import { authConfig } from '../config/auth';
 export interface TokenPayload {
   sub: string;
   email: string;
+  role: 'FREE' | 'PRO';
   iat: number;
   exp: number;
 }
@@ -21,8 +22,6 @@ export function ensureAuthenticated(
   if (FREE_ROUTES[req.method as keyof typeof FREE_ROUTES]?.includes(req.path)) {
     return next();
   }
-
-  console.log(req.method);
 
   const authHeader = req.headers.authorization;
 
@@ -44,6 +43,7 @@ export function ensureAuthenticated(
     req.user = {
       id: decoded.sub, // id do usuário
       email: decoded.email,
+      role: decoded.role,
     };
 
     next();
