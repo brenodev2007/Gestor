@@ -1,6 +1,6 @@
 import { prisma } from '../../db/prisma';
 import { Reports } from '../../generated/prisma';
-import { reportsRepository } from '../reportsRepository';
+import { reportsDTO, reportsRepository } from '../reportsRepository';
 
 export class PrismaReportRepository implements reportsRepository {
   createReport(data: {
@@ -36,5 +36,15 @@ export class PrismaReportRepository implements reportsRepository {
       },
     });
     return report;
+  }
+
+  list(filters: Partial<reportsDTO>): Promise<Reports[]> {
+    const reports = prisma.reports.findMany({
+      where: {
+        ...filters,
+      },
+    });
+
+    return reports;
   }
 }

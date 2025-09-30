@@ -4,6 +4,7 @@ import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 import { GetReportsByUserFactory } from '../modules/reports/factories/GetReportsByUserFactory';
 import { GetReportsByMonthFactory } from '../modules/reports/factories/GetReportsByMonthFacotry';
 import { ensurePro } from '../middlewares/ensureRole';
+import { listReportFactory } from '../modules/reports/factories/ListReportFactory';
 
 const router = Router();
 
@@ -12,5 +13,7 @@ router.post('/reports', createReportsFactory);
 router.get('/reports/:idUser', GetReportsByUserFactory);
 
 router.get('/reports', GetReportsByMonthFactory);
+
+router.get('/reports', ensurePro, listReportFactory);
 
 export default router;
