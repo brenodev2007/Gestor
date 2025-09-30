@@ -18,6 +18,11 @@ enum CategoryType{
   F //fixa
 }
 
+enum Role{
+  FREE
+  PRO
+}
+
 model Users{
   id String @id @default(uuid())
   email    String   @unique
@@ -27,6 +32,8 @@ model Users{
   wallets Wallets[]
   operations Operations[]
   categories Categories[]
+  Role Role @default(FREE)
+  
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
