@@ -9,9 +9,20 @@ export interface OperationDTO {
   type: OperartionType;
 }
 
+export interface FiltersDTO {
+  type: OperartionType;
+  date: Date;
+  description: string;
+  amount: number;
+  idCategory: string;
+}
+
 export interface operationsRepository {
   create(data: OperationDTO): Promise<Operations>;
+
   getOperationsByUser(idUser: string): Promise<Operations[]>;
+
+  list(filters: Partial<FiltersDTO>): Promise<Operations[]>;
 
   deleteOperation(idOperation: string): Promise<void>;
 

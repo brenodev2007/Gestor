@@ -1,8 +1,21 @@
 import { prisma } from '../../db/prisma';
 import { OperartionType, Operations } from '../../generated/prisma';
-import { OperationDTO, operationsRepository } from '../operationsRepository';
+import {
+  FiltersDTO,
+  OperationDTO,
+  operationsRepository,
+} from '../operationsRepository';
 
 export class PrismaOperationRepository implements operationsRepository {
+  list(filters: FiltersDTO): Promise<Operations[]> {
+    const operations = prisma.operations.findMany({
+      where: {
+        ...filters,
+      },
+    });
+
+    return operations;
+  }
   create(data: OperationDTO): Promise<Operations> {
     const operation = prisma.operations.create({
       data,
