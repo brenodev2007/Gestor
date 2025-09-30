@@ -5,7 +5,6 @@ import { getOperationsByUserFactory } from '../modules/operations/factories/GetO
 import { updateOperationFactory } from '../modules/operations/factories/UpdateOperationFactory';
 import { deleteOperationFactory } from '../modules/operations/factories/DeleteOperationFactory';
 import { listOperationFactory } from '../modules/operations/factories/ListOperationFactory';
-import { ensurePro } from '../middlewares/ensureRole';
 
 const router = Router();
 
