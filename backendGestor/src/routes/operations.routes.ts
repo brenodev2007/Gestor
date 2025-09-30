@@ -9,7 +9,7 @@ router.post('/operations', ensureAuthenticated, createOperationFactory);
 
 router.get(
   '/operations/:UserId',
-  ensureAuthenticated,
+
   getOperationsByUserFactory
 );
 

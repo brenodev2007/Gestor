@@ -9,11 +9,21 @@ export interface TokenPayload {
   exp: number;
 }
 
+const FREE_ROUTES = {
+  POST: ['/users', '/login'],
+};
+
 export function ensureAuthenticated(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
+  if (FREE_ROUTES[req.method as keyof typeof FREE_ROUTES]?.includes(req.path)) {
+    return next();
+  }
+
+  console.log(req.method);
+
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {

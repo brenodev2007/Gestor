@@ -6,10 +6,10 @@ import { GetReportsByMonthFactory } from '../modules/reports/factories/GetReport
 
 const router = Router();
 
-router.post('/reports', ensureAuthenticated, createReportsFactory);
+router.post('/reports', createReportsFactory);
 
-router.get('/reports/:idUser', ensureAuthenticated, GetReportsByUserFactory);
+router.get('/reports/:idUser', GetReportsByUserFactory);
 
-router.get('/reports', ensureAuthenticated, GetReportsByMonthFactory);
+router.get('/reports', GetReportsByMonthFactory);
 
 export default router;
