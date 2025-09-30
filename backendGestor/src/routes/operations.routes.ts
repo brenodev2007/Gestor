@@ -9,14 +9,14 @@ import { ensurePro } from '../middlewares/ensureRole';
 
 const router = Router();
 
-router.post('/operations', ensurePro, createOperationFactory);
+router.post('/operations', createOperationFactory);
 
 router.get('/operations/:UserId', getOperationsByUserFactory);
 
 router.get('/operations', listOperationFactory);
 
-router.patch('/operations/:idOperation', ensurePro, updateOperationFactory);
+router.patch('/operations/:idOperation', updateOperationFactory);
 
-router.delete('/operations/:idOperation', ensurePro, deleteOperationFactory);
+router.delete('/operations/:idOperation', deleteOperationFactory);
 
 export default router;
