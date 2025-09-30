@@ -114,6 +114,8 @@ model Categories{
   user   Users  @relation(fields: [userId], references: [id])
   type CategoryType @default(V)
   operations Operations[]
+  icon String?
+  color String?
   
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
