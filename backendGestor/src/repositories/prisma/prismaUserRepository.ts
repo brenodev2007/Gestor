@@ -1,14 +1,20 @@
 import { prisma } from '../../db/prisma';
-import { Users } from '../../generated/prisma';
+import { Role, Users } from '../../generated/prisma';
 import { usersRepository } from '../usersRepository';
 
 export class PrismaUserRepository implements usersRepository {
-  async create(email: string, password: string, name: string): Promise<Users> {
+  async create(
+    email: string,
+    password: string,
+    name: string,
+    role: Role
+  ): Promise<Users> {
     return prisma.users.create({
       data: {
         email,
         password,
         name,
+        Role: role,
       },
     });
   }

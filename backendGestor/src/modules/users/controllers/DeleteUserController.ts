@@ -13,7 +13,7 @@ export class DeleteUserController {
         id: z.string().uuid({ message: 'ID inválido' }),
       });
 
-      const { id } = userSchema.parse(req.body);
+      const { id } = userSchema.parse(req.params);
 
       const createdUSer = await this.deleteUserService.execute(id);
 

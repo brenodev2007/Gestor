@@ -3,7 +3,7 @@ import { DeleteUserController } from '../controllers/DeleteUserController';
 import { DeleteUserService } from '../services/DeleteUserService';
 import { PrismaUserRepository } from '../../../repositories/prisma/prismaUserRepository';
 
-export const Factory = async (req: Request, res: Response) => {
+export const deleteUserFactory = async (req: Request, res: Response) => {
   try {
     const prismaUserRepository = new PrismaUserRepository();
     const Service = new DeleteUserService(prismaUserRepository);

@@ -5,6 +5,7 @@ import { findAllUserFactory } from '../modules/users/factories/FindAllUseractory
 import { findUserByEmailFactory } from '../modules/users/factories/FindUserByEmailFactory';
 import { updateUserFactory } from '../modules/users/factories/UpdateUserFactory';
 import { loginFactory } from '../modules/users/factories/LoginFactory';
+import { deleteUserFactory } from '../modules/users/factories/DeleteUserFactory';
 
 const router = Router();
 
@@ -19,5 +20,7 @@ router.get('/users', findUserByEmailFactory);
 router.patch('/users/:id', updateUserFactory);
 
 router.post('/login', loginFactory);
+
+router.delete('/users/:id', deleteUserFactory);
 
 export default router;

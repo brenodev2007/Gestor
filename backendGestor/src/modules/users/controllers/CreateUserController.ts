@@ -15,14 +15,16 @@ export class CreateUserController {
         name: z
           .string()
           .min(2, { message: 'Nome deve ter pelo menos 2 caracteres' }),
+        role: z.enum(['FREE', 'PRO']).default('FREE'),
       });
 
-      const { email, password, name } = userSchema.parse(req.body);
+      const { email, password, name, role } = userSchema.parse(req.body);
 
       const createdUSer = await this.createUserService.execute(
         email,
         password,
-        name
+        name,
+        role
       );
 
       return res.json({ user: createdUSer });

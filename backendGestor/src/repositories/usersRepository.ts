@@ -1,7 +1,12 @@
-import { Users } from '../generated/prisma';
+import { Role, Users } from '../generated/prisma';
 
 export interface usersRepository {
-  create(email: string, hashedPassword: string, name: string): Promise<Users>;
+  create(
+    email: string,
+    hashedPassword: string,
+    name: string,
+    role: Role
+  ): Promise<Users>;
 
   findById(id: string): Promise<Users | null>;
 
