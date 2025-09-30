@@ -1,25 +1,11 @@
 import { prisma } from '../../db/prisma';
 import { OperartionType, Operations } from '../../generated/prisma';
-import { operationsRepository } from '../operationsRepository';
+import { OperationDTO, operationsRepository } from '../operationsRepository';
 
 export class PrismaOperationRepository implements operationsRepository {
-  create(
-    description: string,
-    amount: number,
-    idUser: string,
-    idWallet: string,
-    idCategory: string,
-    type: OperartionType
-  ): Promise<Operations> {
+  create(data: OperationDTO): Promise<Operations> {
     const operation = prisma.operations.create({
-      data: {
-        description,
-        amount,
-        idUser,
-        idWallet,
-        idCategory,
-        type,
-      },
+      data,
     });
     return operation;
   }
@@ -43,24 +29,14 @@ export class PrismaOperationRepository implements operationsRepository {
   }
   updateOperation(
     idOperation: string,
-    description: string,
-    amount: number,
-    idUser: string,
-    idWallet: string,
-    idCategory: string,
-    type: OperartionType
+    data: Partial<OperationDTO>
   ): Promise<Operations> {
     const operation = prisma.operations.update({
       where: {
         id: idOperation,
       },
       data: {
-        description,
-        amount,
-        idUser,
-        idWallet,
-        idCategory,
-        type,
+        ...data,
       },
     });
     return operation;

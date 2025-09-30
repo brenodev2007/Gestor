@@ -7,12 +7,12 @@ import {
   operationsRepository,
 } from '../../../repositories/operationsRepository';
 
-export class CreateOperationService {
+export class UpdateOperationService {
   constructor(private opeRepo: operationsRepository) {}
 
-  async execute(data: OperationDTO): Promise<Operations> {
+  async execute(data: OperationDTO, idOperation: string): Promise<Operations> {
     // Cria a operação no banco
 
-    return this.opeRepo.create(data);
+    return this.opeRepo.updateOperation(idOperation, data);
   }
 }

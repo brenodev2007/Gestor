@@ -17,17 +17,9 @@ export class CreateOperationController {
         type: z.enum(['I', 'E']),
       });
 
-      const { description, amount, idUser, idWallet, idCategory, type } =
-        reportSchema.parse(req.body);
+      const data = reportSchema.parse(req.body);
 
-      const createdReport = await this.createOperationService.execute(
-        description,
-        amount,
-        idUser,
-        idWallet,
-        idCategory,
-        type
-      );
+      const createdReport = await this.createOperationService.execute(data);
 
       return res.json({ report: createdReport });
     } catch (error) {
