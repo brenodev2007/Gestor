@@ -3,6 +3,7 @@ import { createReportsFactory } from '../modules/reports/factories/CreateReportF
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 import { GetReportsByUserFactory } from '../modules/reports/factories/GetReportsByUserFactory';
 import { GetReportsByMonthFactory } from '../modules/reports/factories/GetReportsByMonthFacotry';
+import { ensurePro } from '../middlewares/ensureRole';
 
 const router = Router();
 

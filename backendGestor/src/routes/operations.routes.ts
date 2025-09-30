@@ -5,17 +5,18 @@ import { getOperationsByUserFactory } from '../modules/operations/factories/GetO
 import { updateOperationFactory } from '../modules/operations/factories/UpdateOperationFactory';
 import { deleteOperationFactory } from '../modules/operations/factories/DeleteOperationFactory';
 import { listOperationFactory } from '../modules/operations/factories/ListOperationFactory';
+import { ensurePro } from '../middlewares/ensureRole';
 
 const router = Router();
 
-router.post('/operations', createOperationFactory);
+router.post('/operations', ensurePro, createOperationFactory);
 
 router.get('/operations/:UserId', getOperationsByUserFactory);
 
 router.get('/operations', listOperationFactory);
 
-router.patch('/operations/:idOperation', updateOperationFactory);
+router.patch('/operations/:idOperation', ensurePro, updateOperationFactory);
 
-router.delete('/operations/:idOperation', deleteOperationFactory);
+router.delete('/operations/:idOperation', ensurePro, deleteOperationFactory);
 
 export default router;
