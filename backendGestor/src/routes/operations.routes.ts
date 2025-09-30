@@ -4,12 +4,15 @@ import { createOperationFactory } from '../modules/operations/factories/CreateOp
 import { getOperationsByUserFactory } from '../modules/operations/factories/GetOperationsByUserFactory';
 import { updateOperationFactory } from '../modules/operations/factories/UpdateOperationFactory';
 import { deleteOperationFactory } from '../modules/operations/factories/DeleteOperationFactory';
+import { listOperationFactory } from '../modules/operations/factories/ListOperationFactory';
 
 const router = Router();
 
 router.post('/operations', createOperationFactory);
 
 router.get('/operations/:UserId', getOperationsByUserFactory);
+
+router.get('/operations', listOperationFactory);
 
 router.patch('/operations/:idOperation', updateOperationFactory);
 
