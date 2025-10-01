@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import z, { email, ZodError } from 'zod';
+import z, { ZodError } from 'zod';
 import { CreateReportService } from '../services/CreateReportsService';
 
 export class CreateReportsController {
@@ -23,13 +23,14 @@ export class CreateReportsController {
         expenses
       );
 
-      return res.json({ report: createdReport });
+      return res.status(201).json({ report: createdReport });
     } catch (error) {
       if (error instanceof ZodError) {
-        res.json({ message: 'Erro nos campos enviados', error: error.issues });
-      } else {
-        return res.status(500).json({ error: 'Erro interno no servidor' });
+        return res
+          .status(400)
+          .json({ message: 'Erro nos campos enviados', error: error.issues });
       }
+      return res.status(500).json({ error: 'Erro interno no servidor' });
     }
   }
 }

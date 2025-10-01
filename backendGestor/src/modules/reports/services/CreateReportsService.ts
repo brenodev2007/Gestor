@@ -10,10 +10,6 @@ export class CreateReportService {
     income: number,
     expenses: number
   ): Promise<Reports> {
-    const data = { idUser, month, income, expenses };
-
-    const reports = await this.reportsRepo.createReport(data);
-
-    return reports;
+    return this.reportsRepo.createReport({ idUser, month, income, expenses });
   }
 }

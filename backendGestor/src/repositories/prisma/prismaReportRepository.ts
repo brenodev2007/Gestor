@@ -1,6 +1,5 @@
 import { prisma } from '../../db/prisma';
 import { Reports } from '../../generated/prisma';
-
 import { reportsDTO, reportsRepository } from '../reportsRepository';
 
 export class PrismaReportRepository implements reportsRepository {
@@ -10,38 +9,29 @@ export class PrismaReportRepository implements reportsRepository {
     income: number;
     expenses: number;
   }): Promise<Reports> {
-    const report = await prisma.reports.create({
-      data: {
-        idUser: data.idUser,
-        month: data.month,
-        income: data.income,
-        expenses: data.expenses,
-      },
+    return prisma.reports.create({
+      data,
     });
-    return report;
   }
 
   async getReportsByUser(idUser: string): Promise<Reports[]> {
-    return prisma.reports.findMany({
-      where: { idUser },
-    });
+    return prisma.reports.findMany({ where: { idUser } });
   }
 
   async getReportByMonth(
     idUser: string,
     month: number
   ): Promise<Reports | null> {
-    return prisma.reports.findFirst({
-      where: {
-        idUser,
-        month,
-      },
-    });
+    return prisma.reports.findFirst({ where: { idUser, month } });
   }
 
   async list(filters: Partial<reportsDTO>): Promise<Reports[]> {
-    return prisma.reports.findMany({
-      where: { ...filters },
+    // filtrar apenas os campos definidos
+    const where: any = {};
+    Object.keys(filters).forEach((key) => {
+      const value = (filters as any)[key];
+      if (value !== undefined) where[key] = value;
     });
+    return prisma.reports.findMany({ where });
   }
 }
