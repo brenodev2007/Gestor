@@ -10,8 +10,8 @@ export class CreateReportsController {
       const reportSchema = z.object({
         idUser: z.string().uuid(),
         month: z.number().int().min(1).max(12),
-        income: z.float32().min(0),
-        expenses: z.float32().min(0),
+        income: z.number().min(0),
+        expenses: z.number().min(0),
       });
 
       const { idUser, month, income, expenses } = reportSchema.parse(req.body);
