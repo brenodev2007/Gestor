@@ -14,4 +14,6 @@ routes.post(
   createCategoriesFactory
 );
 
+routes.delete('/categories/:id/:userId', ensurePro);
+
 export default routes;

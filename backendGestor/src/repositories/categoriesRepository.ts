@@ -13,7 +13,7 @@ export interface categoriesRepository {
 
   create(data: categoriesDTO): Promise<Categories>;
 
-  delete(id: string): Promise<void>;
+  delete(id: string, userId: string): Promise<void>;
 
   update(id: string, data: Partial<categoriesDTO>): Promise<categoriesDTO>;
 }

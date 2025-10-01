@@ -13,10 +13,11 @@ export class PrismaCategoriesRepository implements categoriesRepository {
     });
     return categories;
   }
-  async delete(id: string): Promise<void> {
+  async delete(userId: string, id: string): Promise<void> {
     const categories = await prisma.categories.delete({
       where: {
         id,
+        userId,
       },
     });
   }
