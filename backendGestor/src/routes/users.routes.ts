@@ -15,7 +15,7 @@ router.get('/users', findAllUserFactory);
 
 router.get('/users/:id', findByIdUserFactory);
 
-router.get('/users', findUserByEmailFactory);
+router.get('/user', findUserByEmailFactory);
 
 router.patch('/users/:id', updateUserFactory);
 

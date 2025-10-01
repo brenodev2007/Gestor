@@ -8,7 +8,7 @@ export class FindUserByEmailController {
   async handle(req: Request, res: Response) {
     try {
       const querySchema = z.object({
-        email: z.string().email({ message: 'Email inválido' }),
+        email: z.string(),
       });
 
       const { email } = querySchema.parse(req.query);
