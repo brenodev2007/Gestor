@@ -7,7 +7,6 @@ export class GetReportsByMonthController {
 
   async handle(req: Request, res: Response) {
     try {
-      // Pegar month de query
       const querySchema = z.object({
         month: z
           .string()
@@ -16,26 +15,30 @@ export class GetReportsByMonthController {
             message: 'Mês inválido',
           }),
       });
-
       const { month } = querySchema.parse(req.query);
-
       const idUser = req.user?.id;
-      console.log(req.user?.id);
 
       if (!idUser) {
         return res.status(401).json({ error: 'Usuário não autenticado' });
       }
+      console.log('ID do usuário:', idUser, 'Mês:', month);
 
       const report = await this.getReportsByMonthService.execute(idUser, month);
 
+      if (!report) {
+        return res.status(404).json({ message: 'Relatório não encontrado' });
+      }
+
       return res.json({ report });
-    } catch (error) {
+    } catch (error: any) {
       if (error instanceof z.ZodError) {
         return res
           .status(400)
           .json({ message: 'Erro nos campos enviados', error: error.issues });
       }
-      return res.status(500).json({ error: 'Erro interno no servidor' });
+      return res
+        .status(500)
+        .json({ message: error.message, error: error.stack });
     }
   }
 }

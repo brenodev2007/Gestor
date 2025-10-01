@@ -7,7 +7,7 @@ export interface reportsDTO {
   income: number;
   expenses: number;
   createdAt: Date;
-  updatedAt: Date; // nunca é null, o Prisma preenche automático
+  updatedAt: Date;
 }
 
 export interface reportsRepository {

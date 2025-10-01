@@ -9,20 +9,20 @@ export class PrismaReportRepository implements reportsRepository {
     income: number;
     expenses: number;
   }): Promise<Reports> {
-    return prisma.reports.create({
+    return await prisma.reports.create({
       data,
     });
   }
 
   async getReportsByUser(idUser: string): Promise<Reports[]> {
-    return prisma.reports.findMany({ where: { idUser } });
+    return await prisma.reports.findMany({ where: { idUser } });
   }
 
   async getReportByMonth(
     idUser: string,
     month: number
   ): Promise<Reports | null> {
-    return prisma.reports.findFirst({ where: { idUser, month } });
+    return await prisma.reports.findFirst({ where: { idUser, month } });
   }
 
   async list(filters: Partial<reportsDTO>): Promise<Reports[]> {
@@ -32,6 +32,6 @@ export class PrismaReportRepository implements reportsRepository {
       const value = (filters as any)[key];
       if (value !== undefined) where[key] = value;
     });
-    return prisma.reports.findMany({ where });
+    return await prisma.reports.findMany({ where });
   }
 }
