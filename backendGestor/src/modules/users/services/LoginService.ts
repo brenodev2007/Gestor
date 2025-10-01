@@ -35,6 +35,7 @@ export class LoginService {
         },
         process.env.JWT_SECRET!,
         {
+          subject: user.id,
           expiresIn: '1d',
         }
       ),

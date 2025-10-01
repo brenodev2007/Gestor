@@ -1,4 +1,5 @@
 import { Reports } from '../generated/prisma';
+
 export interface reportsDTO {
   id: string;
   idUser: string;
@@ -6,7 +7,7 @@ export interface reportsDTO {
   income: number;
   expenses: number;
   createdAt: Date;
-  updatedAt: Date | null;
+  updatedAt: Date; // nunca é null, o Prisma preenche automático
 }
 
 export interface reportsRepository {
@@ -16,8 +17,10 @@ export interface reportsRepository {
     income: number;
     expenses: number;
   }): Promise<Reports>;
-  getReportsByUser(userId: string): Promise<Reports[]>;
-  getReportByMonth(userId: string, month: number): Promise<Reports | null>;
+
+  getReportsByUser(idUser: string): Promise<Reports[]>;
+
+  getReportByMonth(idUser: string, month: number): Promise<Reports | null>;
 
   list(filters: Partial<reportsDTO>): Promise<Reports[]>;
 }

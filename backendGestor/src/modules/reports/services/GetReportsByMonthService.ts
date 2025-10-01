@@ -5,8 +5,8 @@ import { reportsRepository } from '../../../repositories/reportsRepository';
 export class GetReportsByMonthService {
   constructor(private reportRepo: reportsRepository) {}
 
-  async execute(UserId: string, month: number): Promise<Reports> {
-    const report = await this.reportRepo.getReportByMonth(UserId, month);
+  async execute(idUser: string, month: number): Promise<Reports> {
+    const report = await this.reportRepo.getReportByMonth(idUser, month);
 
     if (!report) {
       throw new AppError('Relatório não encontrado', 404);

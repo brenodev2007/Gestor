@@ -20,7 +20,7 @@ export class GetReportsByMonthController {
       const { month } = querySchema.parse(req.query);
 
       const idUser = req.user?.id;
-      console.log(idUser);
+      console.log(req.user?.id);
 
       if (!idUser) {
         return res.status(401).json({ error: 'Usuário não autenticado' });

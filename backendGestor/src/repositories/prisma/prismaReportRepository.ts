@@ -1,16 +1,16 @@
 import { prisma } from '../../db/prisma';
 import { Reports } from '../../generated/prisma';
+
 import { reportsDTO, reportsRepository } from '../reportsRepository';
 
 export class PrismaReportRepository implements reportsRepository {
   async createReport(data: {
-    id: string;
     idUser: string;
     month: number;
     income: number;
     expenses: number;
   }): Promise<Reports> {
-    const reports = await prisma.reports.create({
+    const report = await prisma.reports.create({
       data: {
         idUser: data.idUser,
         month: data.month,
@@ -18,36 +18,30 @@ export class PrismaReportRepository implements reportsRepository {
         expenses: data.expenses,
       },
     });
-    return reports;
-  }
-  async getReportsByUser(userId: string): Promise<Reports[]> {
-    const reports = await prisma.reports.findMany({
-      where: {
-        idUser: userId,
-      },
-    });
-    return reports;
-  }
-  async getReportByMonth(
-    userId: string,
-    month: number
-  ): Promise<Reports | null> {
-    const report = await prisma.reports.findFirst({
-      where: {
-        idUser: userId,
-        month: month,
-      },
-    });
     return report;
   }
 
-  async list(filters: Partial<reportsDTO>): Promise<Reports[]> {
-    const reports = await prisma.reports.findMany({
+  async getReportsByUser(idUser: string): Promise<Reports[]> {
+    return prisma.reports.findMany({
+      where: { idUser },
+    });
+  }
+
+  async getReportByMonth(
+    idUser: string,
+    month: number
+  ): Promise<Reports | null> {
+    return prisma.reports.findFirst({
       where: {
-        ...filters,
+        idUser,
+        month,
       },
     });
+  }
 
-    return reports;
+  async list(filters: Partial<reportsDTO>): Promise<Reports[]> {
+    return prisma.reports.findMany({
+      where: { ...filters },
+    });
   }
 }
