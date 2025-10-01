@@ -7,6 +7,7 @@ interface ILoginResponse {
   token: string;
   email: string;
   name: string;
+  role: string;
 }
 
 export class LoginService {
@@ -26,11 +27,20 @@ export class LoginService {
     }
 
     return {
-      token: jwt.sign({ email: user.email }, process.env.JWT_SECRET!, {
-        expiresIn: '1d',
-      }),
+      token: jwt.sign(
+        {
+          id: user.id,
+          email: user.email,
+          role: user.role,
+        },
+        process.env.JWT_SECRET!,
+        {
+          expiresIn: '1d',
+        }
+      ),
       email: user.email,
       name: user.name,
+      role: user.role,
     };
   }
 }

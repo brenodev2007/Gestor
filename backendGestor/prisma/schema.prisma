@@ -32,7 +32,7 @@ model Users{
   wallets Wallets[]
   operations Operations[]
   categories Categories[]
-  Role Role @default(FREE)
+  role Role @default(FREE)
   
 
   createdAt DateTime  @default(now()) @map("created_at")
