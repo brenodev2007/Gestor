@@ -13,113 +13,109 @@ enum OperartionType {
   E // Expense
 }
 
-enum CategoryType{
-  V //variavel
-  F //fixa
+enum CategoryType {
+  V // Variavel
+  F // Fixa
 }
 
-enum Role{
+enum Role {
   FREE
   PRO
 }
 
-model Users{
+model Users {
   id String @id @default(uuid())
-  email    String   @unique
+  email String @unique
   name String
   password String
+  role Role @default(FREE)
+
   reports Reports[]
   wallets Wallets[]
   operations Operations[]
   categories Categories[]
-  role Role @default(FREE)
-  
 
-  createdAt DateTime  @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 
   @@map("users")
 }
 
-model Reports{
+model Reports {
   id String @id @default(uuid())
   month Int
   income Float
   expenses Float
-  idUser String  @map("id_user")
-  user   Users  @relation(fields: [idUser], references: [id])
-  
-  createdAt DateTime  @default(now()) @map("created_at")
+  idUser String @map("id_user")
+  user Users @relation(fields: [idUser], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 
   @@map("reports")
 }
 
-model Wallets{
+model Wallets {
   id String @id @default(uuid())
   name String
   balance Float
-  idUser String  @map("id_user")
-  user   Users  @relation(fields: [idUser], references: [id])
+  idUser String @map("id_user")
+  user Users @relation(fields: [idUser], references: [id], onDelete: Cascade)
   banks Banks?
   operations Operations[]
-  
-  createdAt DateTime  @default(now()) @map("created_at")
+
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 
   @@map("wallets")
 }
 
-model Banks{
+model Banks {
   id String @id @default(uuid())
   name String
   logoUrl String @map("logo_url")
- 
-  wallet Wallets? @relation(fields: [idWallet], references: [id])
   idWallet String? @unique @map("id_wallet")
+  wallet Wallets? @relation(fields: [idWallet], references: [id])
 
-
-  
-  createdAt DateTime  @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 
   @@map("banks")
 }
 
-model Operations{
+model Operations {
   id String @id @default(uuid())
   description String
   amount Float
   type OperartionType @default(E)
- 
-  idUser String  @map("id_user")
-  user   Users  @relation(fields: [idUser], references: [id])
-  
-  idWallet String  @map("id_wallet")
-  wallet   Wallets  @relation(fields: [idWallet], references: [id])
 
-  idCategory String  @map("id_category")
-  category   Categories  @relation(fields: [idCategory], references: [id])
-  
-  createdAt DateTime  @default(now()) @map("created_at")
+  idUser String @map("id_user")
+  user Users @relation(fields: [idUser], references: [id], onDelete: Cascade)
+
+  idWallet String @map("id_wallet")
+  wallet Wallets @relation(fields: [idWallet], references: [id])
+
+  idCategory String @map("id_category")
+  category Categories @relation(fields: [idCategory], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 
   @@map("operations")
 }
 
-model Categories{
+model Categories {
   id String @id @default(uuid())
   name String
-  userId String  @map("user_id")
-  user   Users  @relation(fields: [userId], references: [id])
+  userId String @map("user_id")
+  user Users @relation(fields: [userId], references: [id], onDelete: Cascade)
   type CategoryType @default(V)
   operations Operations[]
   icon String?
   color String?
-  
-  createdAt DateTime  @default(now()) @map("created_at")
+
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 
   @@map("categories")
 }
-

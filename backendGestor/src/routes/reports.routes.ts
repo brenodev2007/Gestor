@@ -12,7 +12,7 @@ router.post('/reports', createReportsFactory);
 
 router.get('/reports/:idUser', GetReportsByUserFactory);
 
-router.get('/reports', GetReportsByMonthFactory);
+router.get('/report', GetReportsByMonthFactory);
 
 router.get('/reports', ensurePro, listReportFactory);
 

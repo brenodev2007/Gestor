@@ -6,6 +6,7 @@ export interface TokenPayload {
   sub: string;
   email: string;
   role: 'FREE' | 'PRO';
+
   iat: number;
   exp: number;
 }
@@ -41,7 +42,7 @@ export function ensureAuthenticated(
 
     // Adiciona o usuário autenticado no req.user
     req.user = {
-      id: decoded.sub, // id do usuário
+      id: decoded.sub,
       email: decoded.email,
       role: decoded.role,
     };
