@@ -9,7 +9,7 @@ export class PrismaUserRepository implements usersRepository {
     name: string,
     role: Role
   ): Promise<Users> {
-    return prisma.users.create({
+    return await prisma.users.create({
       data: {
         email,
         password,
@@ -19,7 +19,7 @@ export class PrismaUserRepository implements usersRepository {
     });
   }
   async findById(id: string): Promise<Users | null> {
-    const user = prisma.users.findUnique({
+    const user = await prisma.users.findUnique({
       where: {
         id,
       },
@@ -33,12 +33,12 @@ export class PrismaUserRepository implements usersRepository {
     return user;
   }
   async findAll(): Promise<Users[]> {
-    const users = prisma.users.findMany();
+    const users = await prisma.users.findMany();
     return users;
   }
 
   async update(id: string, email: string, password: string): Promise<Users> {
-    const user = prisma.users.update({
+    const user = await prisma.users.update({
       where: {
         id,
       },
@@ -50,13 +50,10 @@ export class PrismaUserRepository implements usersRepository {
     return user;
   }
   async delete(id: string): Promise<void> {
-    const user = prisma.users.delete({
+    const user = await prisma.users.delete({
       where: {
         id,
       },
-    });
-    return user.then(() => {
-      return;
     });
   }
 }

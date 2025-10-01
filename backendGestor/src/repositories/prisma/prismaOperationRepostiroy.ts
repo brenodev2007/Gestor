@@ -7,8 +7,8 @@ import {
 } from '../operationsRepository';
 
 export class PrismaOperationRepository implements operationsRepository {
-  list(filters: FiltersDTO): Promise<Operations[]> {
-    const operations = prisma.operations.findMany({
+  async list(filters: FiltersDTO): Promise<Operations[]> {
+    const operations = await prisma.operations.findMany({
       where: {
         ...filters,
       },
@@ -16,35 +16,32 @@ export class PrismaOperationRepository implements operationsRepository {
 
     return operations;
   }
-  create(data: OperationDTO): Promise<Operations> {
-    const operation = prisma.operations.create({
+  async create(data: OperationDTO): Promise<Operations> {
+    const operation = await prisma.operations.create({
       data,
     });
     return operation;
   }
-  getOperationsByUser(idUser: string): Promise<Operations[]> {
-    const operations = prisma.operations.findMany({
+  async getOperationsByUser(idUser: string): Promise<Operations[]> {
+    const operations = await prisma.operations.findMany({
       where: {
         idUser,
       },
     });
     return operations;
   }
-  deleteOperation(idOperation: string): Promise<void> {
-    const operation = prisma.operations.delete({
+  async deleteOperation(idOperation: string): Promise<void> {
+    const operation = await prisma.operations.delete({
       where: {
         id: idOperation,
       },
     });
-    return operation.then(() => {
-      return;
-    });
   }
-  updateOperation(
+  async updateOperation(
     idOperation: string,
     data: Partial<OperationDTO>
   ): Promise<Operations> {
-    const operation = prisma.operations.update({
+    const operation = await prisma.operations.update({
       where: {
         id: idOperation,
       },

@@ -11,6 +11,6 @@ export class CreateCategoriesService {
   async execute(data: categoriesDTO): Promise<Categories> {
     // Cria a operação no banco
 
-    return this.cateRepo.create(data);
+    return await this.cateRepo.create(data);
   }
 }
