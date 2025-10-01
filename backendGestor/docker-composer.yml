@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:8.1
+    container_name: mysql_test
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234 # senha do root
+      MYSQL_DATABASE: testdb # banco de teste
+      MYSQL_USER: root # usuário comum
+      MYSQL_PASSWORD: 1234 # senha do usuário
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql # mantém os dados persistentes
+
+volumes:
+  mysql_data:
