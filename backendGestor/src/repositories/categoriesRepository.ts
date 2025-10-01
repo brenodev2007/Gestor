@@ -15,5 +15,5 @@ export interface categoriesRepository {
 
   delete(id: string, userId: string): Promise<void>;
 
-  update(id: string, data: Partial<categoriesDTO>): Promise<categoriesDTO>;
+  update(id: string, data: Partial<categoriesDTO>): Promise<Categories>;
 }

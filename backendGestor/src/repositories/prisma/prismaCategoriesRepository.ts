@@ -21,10 +21,7 @@ export class PrismaCategoriesRepository implements categoriesRepository {
       },
     });
   }
-  async update(
-    id: string,
-    data: Partial<categoriesDTO>
-  ): Promise<categoriesDTO> {
+  async update(id: string, data: Partial<categoriesDTO>): Promise<Categories> {
     const categories = await prisma.categories.update({
       where: {
         id,

@@ -14,6 +14,8 @@ routes.post(
   createCategoriesFactory
 );
 
+routes.patch('/categories/:id', ensurePro);
+
 routes.delete('/categories/:id/:userId', ensurePro);
 
 export default routes;
