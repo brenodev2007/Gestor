@@ -9,12 +9,11 @@ export class CreateCategoriesController {
   async handle(req: Request, res: Response) {
     try {
       const CategorySchema = z.object({
-        id: z.string().uuid(),
         name: z.string(),
         userId: z.string().uuid(),
         type: z.enum(['V', 'F']),
-        color: z.string().nullable(),
-        icon: z.string().nullable(),
+        color: z.string().nullable().optional(),
+        icon: z.string().nullable().optional(),
       });
 
       const data = CategorySchema.parse(req.body);

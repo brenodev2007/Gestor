@@ -1,7 +1,6 @@
 import { Categories, CategoryType } from '../generated/prisma';
 
 export interface categoriesDTO {
-  id: string;
   name: string;
   userId: string;
   type: CategoryType;
