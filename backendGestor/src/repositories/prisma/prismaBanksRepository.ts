@@ -2,36 +2,32 @@ import { prisma } from '../../db/prisma';
 import { Banks } from '../../generated/prisma';
 import { banksDTO } from '../banksRepository';
 
-export class prismaBanksRepostiory {
+export class PrismaBanksRepository {
   async create(data: banksDTO): Promise<Banks> {
-    const bank = await prisma.banks.create({
-      data,
+    return await prisma.banks.create({
+      data: {
+        name: data.name,
+        logoUrl: data.logoUrl || '', // default if undefined
+        idWallet: data.idWallet,
+      },
     });
-    return bank;
   }
 
   async getAllBanks(): Promise<Banks[]> {
-    const banks = await prisma.banks.findMany();
-    return banks;
-  }
-
-  async delete(id: string): Promise<void> {
-    const bank = await prisma.banks.delete({
-      where: {
-        id,
-      },
-    });
+    return await prisma.banks.findMany();
   }
 
   async update(id: string, data: Partial<banksDTO>): Promise<Banks> {
-    const bank = await prisma.banks.update({
-      where: {
-        id,
-      },
+    return await prisma.banks.update({
+      where: { id },
       data: {
         ...data,
+        logoUrl: data.logoUrl || '',
       },
     });
-    return bank;
+  }
+
+  async delete(id: string): Promise<void> {
+    await prisma.banks.delete({ where: { id } });
   }
 }

@@ -1,11 +1,9 @@
 import { Banks } from '../generated/prisma';
 
 export interface banksDTO {
-  id: string;
   name: string;
-  logoUrl: string;
-  createdAt: Date;
-  updatedAt: Date;
+  logoUrl?: string;
+  idWallet?: string;
 }
 
 export interface banksRepository {

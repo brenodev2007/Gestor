@@ -73,7 +73,7 @@ model Wallets {
 model Banks {
   id String @id @default(uuid())
   name String
-  logoUrl String @map("logo_url")
+  logoUrl String? @map("logo_url")
   idWallet String? @unique @map("id_wallet")
   wallet Wallets? @relation(fields: [idWallet], references: [id])
 
