@@ -3,7 +3,7 @@ import { UpdateCategoriesController } from '../controllers/UpdateCategoriesContr
 import { UpdateCategoriesServices } from '../services/UpdateCategoriesService';
 import { PrismaCategoriesRepository } from '../../../repositories/prisma/prismaCategoriesRepository';
 
-export const Factory = async (req: Request, res: Response) => {
+export const updateCategoriesFactory = async (req: Request, res: Response) => {
   try {
     const prismaCategoryRepository = new PrismaCategoriesRepository();
     const Service = new UpdateCategoriesServices(prismaCategoryRepository);

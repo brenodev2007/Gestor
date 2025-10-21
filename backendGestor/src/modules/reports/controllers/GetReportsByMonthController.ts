@@ -29,6 +29,8 @@ export class GetReportsByMonthController {
         return res.status(404).json({ message: 'Relatório não encontrado' });
       }
 
+      console.log('Searching for report with:', { idUser, month });
+
       return res.json({ report });
     } catch (error: any) {
       if (error instanceof z.ZodError) {

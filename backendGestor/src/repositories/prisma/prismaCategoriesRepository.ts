@@ -22,14 +22,21 @@ export class PrismaCategoriesRepository implements categoriesRepository {
     });
   }
   async update(id: string, data: Partial<categoriesDTO>): Promise<Categories> {
-    const categories = await prisma.categories.update({
-      where: {
-        id,
-      },
-      data: {
-        ...data,
-      },
-    });
-    return categories;
+    try {
+      const categories = await prisma.categories.update({
+        where: { id },
+        data: { ...data },
+      });
+      console.log('[Repository] Update successful', categories);
+      return categories;
+    } catch (err: any) {
+      console.error('[Repository] Error updating category:', err);
+
+      if (err.code === 'P2025') {
+        console.log('[Repository] Category not found for id:', id);
+        throw new Error('Categoria não encontrada');
+      }
+      throw err;
+    }
   }
 }

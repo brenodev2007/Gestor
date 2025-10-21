@@ -12,6 +12,6 @@ export class GetReportsByMonthService {
       throw new AppError('Relatório não encontrado', 404);
     }
 
-    return report;
+    return report ?? null;
   }
 }

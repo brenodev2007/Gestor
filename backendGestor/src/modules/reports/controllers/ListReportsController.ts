@@ -11,7 +11,12 @@ export class ListReportsController {
       const querySchema = z.object({
         id: z.string().uuid().optional(),
 
-        month: z.number().int().min(1).max(12).optional(),
+        month: z
+          .string()
+          .transform((val) => parseInt(val, 10))
+          .refine((val) => val >= 1 && val <= 12, { message: 'Mês inválido' })
+          .optional(),
+
         description: z.string().optional(),
         amount: z.number().optional(),
         income: z.number().optional(),

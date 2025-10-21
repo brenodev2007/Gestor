@@ -30,7 +30,7 @@ export class CreateUserController {
       return res.json({ user: createdUSer });
     } catch (error) {
       if (error instanceof z.ZodError) {
-        return res.status(400).json({ message: 'Erro nos campos' });
+        return res.status(400).json({ message: 'Erro nos campos', error });
       }
       if (error instanceof Error) {
         return res.status(400).json({ message: error.message });
