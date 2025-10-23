@@ -17,6 +17,10 @@ export class PrismaBanksRepository {
     return await prisma.banks.findMany();
   }
 
+  async finbyId(id: string): Promise<Banks | null> {
+    return await prisma.banks.findUnique({ where: { id } });
+  }
+
   async update(id: string, data: Partial<banksDTO>): Promise<Banks> {
     return await prisma.banks.update({
       where: { id },

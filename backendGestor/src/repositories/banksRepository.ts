@@ -11,4 +11,5 @@ export interface banksRepository {
   getAllBanks(): Promise<Banks[]>;
   delete(id: string): Promise<void>;
   update(id: string, data: Partial<banksDTO>): Promise<Banks>;
+  findById(id: string): Promise<Banks | null>;
 }
